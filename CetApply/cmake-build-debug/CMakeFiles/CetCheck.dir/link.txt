@@ -1,0 +1,3 @@
+"C:\Program Files\JetBrains\CLion 2020.2\bin\cmake\win\bin\cmake.exe" -E rm -f CMakeFiles\CetCheck.dir/objects.a
+C:\MinGW\bin\ar.exe cr CMakeFiles\CetCheck.dir/objects.a @CMakeFiles\CetCheck.dir\objects1.rsp
+C:\MinGW\bin\gcc.exe -g   -Wl,--whole-archive CMakeFiles\CetCheck.dir/objects.a -Wl,--no-whole-archive  -o CetCheck.exe -Wl,--out-implib,libCetCheck.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\CetCheck.dir\linklibs.rsp
