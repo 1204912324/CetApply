@@ -4,8 +4,5 @@
 struct stu student[50];
 int count = 0;
 int main() {
-
-    while (mainmenu() == true);
-
-    return 0;
+    mainmenu();
 }

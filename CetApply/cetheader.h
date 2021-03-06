@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <conio.h>
+#define ADMIN 000000;
 enum bool{true, false};
 struct stu{
     int id;
@@ -7,12 +9,12 @@ struct stu{
     char sex[10];
     char tel[20];
     char address[30];
-    char test[10];
+    int test;
     enum bool pay;
 } stu;
 extern struct stu student[50];
 extern int count;
-enum bool mainmenu();
+void mainmenu();
 enum bool adminmenu();
 enum bool stumenu();
 enum bool loadfile();
@@ -26,7 +28,8 @@ enum bool search();
 
 
 enum bool add();
-enum bool testinfo();
+void showinfo();
+void testinfo();
 enum bool change();
 enum bool pay();
 enum bool talk();
