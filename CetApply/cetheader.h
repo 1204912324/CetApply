@@ -26,6 +26,7 @@ enum bool search();
 
 
 enum bool add();
+enum bool testinfo();
 enum bool change();
 enum bool pay();
 enum bool talk();
