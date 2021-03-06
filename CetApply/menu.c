@@ -1,10 +1,10 @@
 #include "cetheader.h"
 
 
-int menu(){
+enum bool mainmenu(){
 
 
 
-    return 0;
+    return false;
 }
 
