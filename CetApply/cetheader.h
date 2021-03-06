@@ -4,7 +4,8 @@
 #define ADMIN 000000;
 enum bool{true, false};
 struct stu{
-    int id;
+    char id[20];
+    int testid;
     char name[10];
     char sex[10];
     char tel[20];

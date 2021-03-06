@@ -90,30 +90,43 @@ enum bool adminmenu(){
 
     switch ((char) getchar()) {
         case '1':
-            printf("1");
-            break;
+            if (input() == true)
+                printf("录入成功!\n");
+            else
+                printf("某项录入失败，可能含有非法输入!\n");
+            return true;
         case '2':
-            printf("2");
-            break;
+            output();
+            return true;
         case '3':
-            printf("3");
-            break;
+            if (del() == true)
+                printf("考生信息删除成功!\n");
+            else
+                printf("未知错误，删除失败!\n");
+            return true;
         case '4':
-            printf("4");
-            break;
+            search();
+            return true;
         case '5':
-            printf("5");
             return false;
         default:
             printf("非法输入!\n");
             return true;
     }
-    return true;
-
-
 }
 enum bool loadfile(){
-
+    FILE *fp = fopen("stu.txt", "r");
+//    fprintf(fp, "1 1 ge nan 1232131 asdada 1 true");
+    rewind(fp);
+    int i = 0;
+    char a[5];
+    for (; feof(fp) == 0 ; ++i) {
+        fscanf(fp, "%s %d %s %s %s %s %d %s", student[i].id, &student[i].testid, student[i].name, student[i].sex, student[i].tel, student[i].address, &student[i].test, a);
+        student[i].pay = a == "true"? true:false;
+    }
+    if (i > count)
+        count = i;
+    fclose(fp);
 }
 enum bool updatefile(){
 
