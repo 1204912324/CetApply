@@ -18,7 +18,7 @@ void mainmenu(){
         case '3':
             return;
         default:
-            printf("非法输入!\n");
+            printf("\n非法输入!\n");
     }
 }
 
@@ -72,7 +72,7 @@ enum bool stumenu(){
         case '8':
             return false;
         default:
-            printf("非法输入!\n");
+            printf("\n非法输入!\n");
             return true;
     }
 
@@ -91,18 +91,18 @@ enum bool adminmenu(){
     switch ((char) getchar()) {
         case '1':
             if (input() == true)
-                printf("录入成功!\n");
+                printf("\n录入成功!\n");
             else
-                printf("某项录入失败，可能含有非法输入!\n");
+                printf("\n某项录入失败，可能含有非法输入!\n");
             return true;
         case '2':
             output();
             return true;
         case '3':
             if (del() == true)
-                printf("考生信息删除成功!\n");
+                printf("\n考生信息删除成功!\n");
             else
-                printf("未知错误，删除失败!\n");
+                printf("\n未知错误，删除失败!\n");
             return true;
         case '4':
             search();
@@ -110,7 +110,7 @@ enum bool adminmenu(){
         case '5':
             return false;
         default:
-            printf("非法输入!\n");
+            printf("\n非法输入!\n");
             return true;
     }
 }
@@ -121,15 +121,23 @@ enum bool loadfile(){
     int i = 0;
     char a[5];
     for (; feof(fp) == 0 ; ++i) {
-        fscanf(fp, "%s %d %s %s %s %s %d %s", student[i].id, &student[i].testid, student[i].name, student[i].sex, student[i].tel, student[i].address, &student[i].test, a);
+        fscanf(fp, "%s %d %s %s %s %s %d %s\n", student[i].id, &student[i].testid, student[i].name, student[i].sex, student[i].tel, student[i].address, &student[i].test, a);
         student[i].pay = a == "true"? true:false;
     }
     if (i > count)
         count = i;
     fclose(fp);
+    return true;
 }
 enum bool updatefile(){
-
+    FILE *fp = fopen("stu.txt", "w");
+    rewind(fp);
+    int i = 0;
+    for (; i < count ; ++i) {
+        fprintf(fp, "%s %d %s %s %s %s %d %s\n", student[i].id, student[i].testid, student[i].name, student[i].sex, student[i].tel, student[i].address, student[i].test, student[i].pay == true?"true":"false");
+    }
+    fclose(fp);
+    return true;
 }
 
 
@@ -149,6 +157,41 @@ enum bool search(){
 
 enum bool add(){
 
+    if (flag_now == true){
+        testinfo();
+        printf("\n请输入考场编号!\n");
+        scanf("%d", &student[count].test);
+        if (student[count].test >= 1 && student[count].test <= 4){
+            strcpy(student[count].id, nowstudent.id);
+            strcpy(student[count].name, nowstudent.name);
+            strcpy(student[count].sex, nowstudent.sex);
+            strcpy(student[count].tel, nowstudent.tel);
+            strcpy(student[count].address, nowstudent.address);
+            student[count].testid = student[count].test * 100000 + count;
+            student[count].pay = false;
+            count++;
+        } else if (student[count].test >= 5 && student[count].test <= 8){
+            strcpy(student[count].id, nowstudent.id);
+            strcpy(student[count].name, nowstudent.name);
+            strcpy(student[count].sex, nowstudent.sex);
+            strcpy(student[count].tel, nowstudent.tel);
+            strcpy(student[count].address, nowstudent.address);
+            student[count].testid = student[count].test * 100000 + count;
+            student[count].pay = false;
+            count++;
+        } else
+            printf("\n非法输入!\n");
+    } else{
+        printf("\n请先录入考生信息!\n");
+        if (infoinput() == true){
+            printf("\n个人信息录入成功!\n");
+            add();
+        }
+        else{
+            printf("\n个人信息录入失败，可能含有非法输入!\n");
+            return false;
+        }
+    }
     return true;
 }
 void showinfo(){

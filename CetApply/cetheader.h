@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
+#include <string.h>
 #define ADMIN 000000;
 enum bool{true, false};
 struct stu{
@@ -13,6 +14,8 @@ struct stu{
     int test;
     enum bool pay;
 } stu;
+extern enum bool flag_now;
+extern struct stu nowstudent;
 extern struct stu student[50];
 extern int count;
 void mainmenu();
