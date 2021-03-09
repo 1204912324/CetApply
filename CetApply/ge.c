@@ -1,42 +1,16 @@
-//#include "cetheader.h"
-#include <stdio.h>
-#include <string.h>
-struct stu{
-
-    char id[20];
-
-    char name[10];
-
-    char sex[10];
-
-    char tel[20];
-
-    char address[30];
-
-    int test;
-
-    int pay;
-
-} stu;
-struct stu student[50];
-
-int num=0;
+#include "cetheader.h"
 
 void testinfo();
-void infoinput();
+enum bool infoinput();
 void showinfo();
-void pay();
-void change();
+enum bool pay();
+enum bool change();
 int searchid();
-int main(){
-	infoinput();
-	change();
-	showinfo();
-}
 
-void pay(){
+enum bool pay(){
 	int i,count1=0;
 	char Pid[20];
+	loadfile();
 	printf("请输入您的身份证号："); 
 	scanf("%s",&Pid);
 	for(i=0;i<50;i++){
@@ -62,29 +36,32 @@ void pay(){
 	}
 	}
 	while(flag1!=1);
+	updatefile();
+	return true;
 }
- void infoinput(){
+enum bool infoinput(){
+	loadfile();
  	printf("请录入您的个人信息\n");
 	printf("身份证号:");
-	scanf("%s",&student[num].id);
+	scanf("%s",&student[count+1].id);
 	printf("姓名:");
-	scanf("%s",&student[num].name);
+	scanf("%s",&student[count+1].name);
 	printf("性别：");
-	scanf("%s",&student[num].sex);
+	scanf("%s",&student[count+1].sex);
 	char itel[20];
 	int flag=0;
 	do{
 	printf("电话:");
 	scanf("%s",&itel);
 	if(strlen(itel)==11){
-	        strcpy(student[num].tel,itel);
+	        strcpy(student[count+1].tel,itel);
 	        flag=1;
 			}else printf("电话不符合规定请重新输入！\n");
 	}while(flag!=1);
 	printf("住址:");
-	scanf("%s",&student[num].address);
-	 num++;
-	
+	scanf("%s",&student[count+1].address);
+	updatefile();
+	return true;
 }
 void testinfo(){    
     printf("                    考试考场信息                      \n");
@@ -103,9 +80,10 @@ void testinfo(){
 	printf("******************************************************\n"); 
 
 }
-void showinfo(){
+ void showinfo(){
 	char Sid[20];
 	int i;
+	loadfile();
 	printf("请输入身份证号：");
 	scanf("%s",&Sid);
 	for(i=0;i<50;i++){
@@ -122,7 +100,7 @@ void showinfo(){
 	}
 }
 
-void talk(){
+enum bool talk(){
 	int a;
 	printf("请问您遇到了哪些问题？\n");
 	printf("1.报名不成功。\n2.无法录入信息。\n3.缴费失败。\n4.转接人工客服。\n");
@@ -132,8 +110,10 @@ void talk(){
 	} else if(a==4){
 		printf("后台正在转接人工客服，请稍等。\n");
 	}else printf("请认真反馈！");
+	return true;
 }
 int searchid(){
+	loadfile();
 	char Cid[20];int i;
 	printf("请输入您的身份证号：\n");
 	scanf("%s",&Cid);
@@ -146,7 +126,7 @@ int searchid(){
 	}
 	return i;
 }
-void change(){
+enum bool change(){
 	int i;
 	i=searchid();
 	printf("请选择您要修改的信息：\n");
@@ -198,5 +178,7 @@ void change(){
 			change();
 		}
 	}
+	updatefile();
+	return true;
 }
 
